@@ -12,31 +12,40 @@
             padding: 20px;
         }
         .cake {
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle at 75px 75px, #fff, #eebb99);
-            border-radius: 100px 100px 0 0;
             position: relative;
+            width: 300px;
+            height: 200px;
             margin: 20px auto;
+            background: radial-gradient(circle at 50% 80%, #fff, #eebb99);
+            border-radius: 150px 150px 100px 100px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
         .candle {
-            width: 10px;
-            height: 30px;
-            background: #fff;
-            border-radius: 5px;
             position: absolute;
+            width: 20px;
+            height: 40px;
+            background: #fff;
+            border-radius: 10px;
+            top: 20px;
             left: 50%;
-            top: 0;
             transform: translateX(-50%);
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
         }
+        .candle:before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 10px;
+            background: #ffd700;
+            border-radius: 5px;
+            top: -10px;
+        }
         .flame {
+            position: absolute;
             width: 20px;
             height: 20px;
             background: #ffc;
             border-radius: 50%;
-            position: absolute;
             top: -10px;
             left: 50%;
             transform: translateX(-50%);
@@ -60,7 +69,16 @@
 <body>
     <h1>生日快乐！</h1>
     <div class="cake">
-        <div class="candle">
+        <div class="candle" style="left: 45%;">
+            <div class="flame"></div>
+        </div>
+        <div class="candle" style="left: 55%;">
+            <div class="flame"></div>
+        </div>
+        <div class="candle" style="left: 35%;">
+            <div class="flame"></div>
+        </div>
+        <div class="candle" style="left: 65%;">
             <div class="flame"></div>
         </div>
     </div>
