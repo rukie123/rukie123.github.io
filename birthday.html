@@ -4,84 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>生日快乐</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f2f2f2;
-            text-align: center;
-            padding: 20px;
+    <script>
+        function createCakeLayers(parent, layers) {
+            for (let i = 0; i < layers; i++) {
+                let layer = document.createElement('div');
+                layer.style.width = (300 - i * 20) + 'px';
+                layer.style.height = (200 - i * 20) + 'px';
+                layer.style.backgroundColor = '#eebb99';
+                layer.style.borderRadius = '150px 150px 100px 100px';
+                layer.style.position = 'absolute';
+                layer.style.bottom = i * 10 + 'px';
+                layer.style.left = (300 - (300 - i * 20)) / 2 + 'px';
+                parent.appendChild(layer);
+            }
         }
-        .cake {
-            position: relative;
-            width: 300px;
-            height: 200px;
-            margin: 20px auto;
-            background: radial-gradient(circle at 50% 80%, #fff, #eebb99);
-            border-radius: 150px 150px 100px 100px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
+        function addCandles(parent) {
+            let candles = [
+                { left: '45%', top: '20px' },
+                { left: '55%', top: '20px' },
+                { left: '35%', top: '20px' },
+                { left: '65%', top: '20px' }
+            ];
+
+            candles.forEach(candle => {
+                let candleEl = document.createElement('div');
+                candleEl.style.position = 'absolute';
+                candleEl.style.width = '20px';
+                candleEl.style.height = '40px';
+                candleEl.style.backgroundColor = '#fff';
+                candleEl.style.borderRadius = '10px';
+                candleEl.style.left = candle.left;
+                candleEl.style.top = candle.top;
+                candleEl.style.transform = 'translateX(-50%)';
+
+                let flameEl = document.createElement('div');
+                flameEl.style.position = 'absolute';
+                flameEl.style.width = '20px';
+                flameEl.style.height = '20px';
+                flameEl.style.backgroundColor = '#ffc';
+                flameEl.style.borderRadius = '50%';
+                flameEl.style.top = '-10px';
+                flameEl.style.left = '50%';
+                flameEl.style.transform = 'translateX(-50%)';
+
+                candleEl.appendChild(flameEl);
+                parent.appendChild(candleEl);
+            });
         }
-        .candle {
-            position: absolute;
-            width: 20px;
-            height: 40px;
-            background: #fff;
-            border-radius: 10px;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+
+        window.onload = function() {
+            let cakeContainer = document.getElementById('cake-container');
+            createCakeLayers(cakeContainer, 3);
+            addCandles(cakeContainer);
         }
-        .candle:before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 10px;
-            background: #ffd700;
-            border-radius: 5px;
-            top: -10px;
-        }
-        .flame {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: #ffc;
-            border-radius: 50%;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: flicker 0.5s infinite alternate;
-        }
-        @keyframes flicker {
-            from { opacity: 1; }
-            to { opacity: 0; }
-        }
-        h1 {
-            font-size: 2em;
-            color: #333;
-        }
-        .message {
-            margin-top: 20px;
-            font-size: 1.5em;
-            color: #555;
-        }
-    </style>
+    </script>
 </head>
 <body>
     <h1>生日快乐！</h1>
-    <div class="cake">
-        <div class="candle" style="left: 45%;">
-            <div class="flame"></div>
-        </div>
-        <div class="candle" style="left: 55%;">
-            <div class="flame"></div>
-        </div>
-        <div class="candle" style="left: 35%;">
-            <div class="flame"></div>
-        </div>
-        <div class="candle" style="left: 65%;">
-            <div class="flame"></div>
-        </div>
-    </div>
+    <div id="cake-container" style="position: relative; width: 300px; height: 200px; margin: 20px auto;"></div>
     <div class="message" id="message"></div>
     <script>
         const messageElement = document.getElementById('message');
