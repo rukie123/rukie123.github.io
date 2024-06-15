@@ -5,8 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>生日快乐</title>
     <style>
+        #cake-container {
+            perspective: 1000px;
+        }
         .cake-layer {
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transform: rotateX(45deg);
             transition: box-shadow 0.3s ease-in-out;
         }
         .flame {
@@ -23,12 +27,13 @@
                 let layer = document.createElement('div');
                 layer.className = 'cake-layer';
                 layer.style.width = (300 - i * 20) + 'px';
-                layer.style.height = (200 - i * 20) + 'px';
+                layer.style.height = (20 * (layers - i)) + 'px'; // Adjust height based on layer depth
                 layer.style.backgroundColor = '#eebb99';
                 layer.style.borderRadius = `${150 - i * 5}px`;
                 layer.style.position = 'absolute';
-                layer.style.bottom = i * 10 + 'px';
+                layer.style.bottom = 0; // Set bottom to 0 and use transform to adjust depth
                 layer.style.left = (300 - (300 - i * 20)) / 2 + 'px';
+                layer.style.transform = `translateY(${i * 10}px) rotateX(45deg)`; // Add rotation and depth
                 parent.appendChild(layer);
             }
         }
@@ -50,7 +55,7 @@
                 candleEl.style.borderRadius = '10px';
                 candleEl.style.left = candle.left;
                 candleEl.style.top = candle.top;
-                candleEl.style.transform = 'translateX(-50%)';
+                candleEl.style.transform = 'translateX(-50%) rotateX(45deg)'; // Add rotation
 
                 let flameEl = document.createElement('div');
                 flameEl.className = 'flame';
@@ -61,7 +66,7 @@
                 flameEl.style.borderRadius = '50%';
                 flameEl.style.top = '-10px';
                 flameEl.style.left = '50%';
-                flameEl.style.transform = 'translateX(-50%)';
+                flameEl.style.transform = 'translateX(-50%) translateY(-5px)'; // Adjust position
 
                 candleEl.appendChild(flameEl);
                 parent.appendChild(candleEl);
@@ -92,6 +97,4 @@
 <body>
     <h1>生日快乐！</h1>
     <div id="cake-container" style="position: relative; width: 300px; height: 200px; margin: 20px auto;"></div>
-    <div class="message" id="message"></div>
-</body>
-</html>
+    <div class
