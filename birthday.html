@@ -4,14 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>生日快乐</title>
+    <style>
+        .cake-layer {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+        .flame {
+            animation: flicker 1s infinite;
+        }
+        @keyframes flicker {
+            0%, 100% { transform: translateY(0); opacity: 1; }
+            50% { transform: translateY(-5px); opacity: 0.5; }
+        }
+    </style>
     <script>
         function createCakeLayers(parent, layers) {
             for (let i = 0; i < layers; i++) {
                 let layer = document.createElement('div');
+                layer.className = 'cake-layer';
                 layer.style.width = (300 - i * 20) + 'px';
                 layer.style.height = (200 - i * 20) + 'px';
                 layer.style.backgroundColor = '#eebb99';
-                layer.style.borderRadius = '150px 150px 100px 100px';
+                layer.style.borderRadius = `${150 - i * 5}px`;
                 layer.style.position = 'absolute';
                 layer.style.bottom = i * 10 + 'px';
                 layer.style.left = (300 - (300 - i * 20)) / 2 + 'px';
@@ -39,6 +53,7 @@
                 candleEl.style.transform = 'translateX(-50%)';
 
                 let flameEl = document.createElement('div');
+                flameEl.className = 'flame';
                 flameEl.style.position = 'absolute';
                 flameEl.style.width = '20px';
                 flameEl.style.height = '20px';
@@ -57,6 +72,20 @@
             let cakeContainer = document.getElementById('cake-container');
             createCakeLayers(cakeContainer, 3);
             addCandles(cakeContainer);
+
+            const messageElement = document.getElementById('message');
+            const birthdayMessage = "愿你的每一天都像今天一样特别！";
+            let index = 0;
+
+            function typeWriter() {
+                if (index < birthdayMessage.length) {
+                    messageElement.innerHTML += birthdayMessage.charAt(index);
+                    index++;
+                    setTimeout(typeWriter, 50);
+                }
+            }
+
+            typeWriter();
         }
     </script>
 </head>
@@ -64,20 +93,5 @@
     <h1>生日快乐！</h1>
     <div id="cake-container" style="position: relative; width: 300px; height: 200px; margin: 20px auto;"></div>
     <div class="message" id="message"></div>
-    <script>
-        const messageElement = document.getElementById('message');
-        const birthdayMessage = "愿你的每一天都像今天一样特别！";
-        let index = 0;
-
-        function typeWriter() {
-            if (index < birthdayMessage.length) {
-                messageElement.innerHTML += birthdayMessage.charAt(index);
-                index++;
-                setTimeout(typeWriter, 50);
-            }
-        }
-
-        typeWriter();
-    </script>
 </body>
 </html>
