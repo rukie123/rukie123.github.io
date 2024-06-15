@@ -1,100 +1,87 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> 生日快乐 </title>
+    <title>3D Birthday Cake with Candles and Text</title>
     <style>
-        #cake-container {
-            perspective: 1000px;
-        }
-        .cake-layer {
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transform: rotateX(45deg);
-            transition: box-shadow 0.3s ease-in-out;
-        }
-        .flame {
-            animation: flicker 1s infinite;
-        }
-        @keyframes flicker {
-            0%, 100% { transform: translateY(0); opacity: 1; }
-            50% { transform: translateY(-5px); opacity: 0.5; }
-        }
+        body { margin: 0; overflow: hidden; }
     </style>
-    <script>
-        function createCakeLayers(parent, layers) {
-            for (let i = 0; i < layers; i++) {
-                let layer = document.createElement('div');
-                layer.className = 'cake-layer';
-                layer.style.width = (300 - i * 20) + 'px';
-                layer.style.height = (20 * (layers - i)) + 'px'; // Adjust height based on layer depth
-                layer.style.backgroundColor = '#eebb99';
-                layer.style.borderRadius = `${150 - i * 5}px`;
-                layer.style.position = 'absolute';
-                layer.style.bottom = 0; // Set bottom to 0 and use transform to adjust depth
-                layer.style.left = (300 - (300 - i * 20)) / 2 + 'px';
-                layer.style.transform = `translateY(${i * 10}px) rotateX(45deg)`; // Add rotation and depth
-                parent.appendChild(layer);
-            }
-        }
-
-        function addCandles(parent) {
-            let candles = [
-                { left: '45%', top: '20px' },
-                { left: '55%', top: '20px' },
-                { left: '35%', top: '20px' },
-                { left: '65%', top: '20px' }
-            ];
-
-            candles.forEach(candle => {
-                let candleEl = document.createElement('div');
-                candleEl.style.position = 'absolute';
-                candleEl.style.width = '20px';
-                candleEl.style.height = '40px';
-                candleEl.style.backgroundColor = '#fff';
-                candleEl.style.borderRadius = '10px';
-                candleEl.style.left = candle.left;
-                candleEl.style.top = candle.top;
-                candleEl.style.transform = 'translateX(-50%) rotateX(45deg)'; // Add rotation
-
-                let flameEl = document.createElement('div');
-                flameEl.className = 'flame';
-                flameEl.style.position = 'absolute';
-                flameEl.style.width = '20px';
-                flameEl.style.height = '20px';
-                flameEl.style.backgroundColor = '#ffc';
-                flameEl.style.borderRadius = '50%';
-                flameEl.style.top = '-10px';
-                flameEl.style.left = '50%';
-                flameEl.style.transform = 'translateX(-50%) translateY(-5px)'; // Adjust position
-
-                candleEl.appendChild(flameEl);
-                parent.appendChild(candleEl);
-            });
-        }
-
-        window.onload = function() {
-            let cakeContainer = document.getElementById('cake-container');
-            createCakeLayers(cakeContainer, 3);
-            addCandles(cakeContainer);
-
-            const messageElement = document.getElementById('message');
-            const birthdayMessage = "愿你的每一天都像今天一样特别！";
-            let index = 0;
-
-            function typeWriter() {
-                if (index < birthdayMessage.length) {
-                    messageElement.innerHTML += birthdayMessage.charAt(index);
-                    index++;
-                    setTimeout(typeWriter, 50);
-                }
-            }
-
-            typeWriter();
-        }
-    </script>
 </head>
 <body>
-    <h1>生日快乐！</h1>
-    <div id="cake-container" style="position: relative; width: 300px; height: 200px; margin: 20px auto;"></div>
-    <div class
+    <!-- 引入Three.js库 -->
+    <script src="path_to_three.min.js"></script>
+    <script src="path_to_fontfile.json"></script> <!-- 字体文件，需要根据实际路径更新 -->
+    <script>
+        // 创建场景
+        const scene = new THREE.Scene();
+
+        // 创建相机
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+        // 创建渲染器
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // 创建一个简单的蛋糕模型
+        const cakeGeometry = new THREE.CylinderGeometry(2, 2, 4, 16); // 底座
+        const cakeMaterial = new THREE.MeshBasicMaterial({ color: 0xEEEEFF });
+        const cakeBase = new THREE.Mesh(cakeGeometry, cakeMaterial);
+        scene.add(cakeBase);
+
+        // 创建蜡烛模型
+        const candleGeometry = new THREE.CylinderGeometry(0.2, 0.2, 2, 16); // 蜡烛
+        const candleMaterial = new THREE.MeshBasicMaterial({ color: 0xFF5555 });
+        const candle = new THREE.Mesh(candleGeometry, candleMaterial);
+        candle.position.set(0, 3, 0); // 蜡烛位置在蛋糕上方
+        scene.add(candle);
+
+        // 添加灯光
+        const light = new THREE.PointLight(0xFFFFFF, 1, 100);
+        light.position.set(5, 5, 5);
+        scene.add(light);
+
+        // 创建庆祝生日的文字
+        const fontLoader = new THREE.FontLoader();
+        fontLoader.load('path_to_fontfile.json', (font) => {
+            const textGeometry = new THREE.TextGeometry('Happy Birthday', {
+                font: font,
+                size: 2,
+                height: 0.2,
+                curveSegments: 12,
+                bevelEnabled: true,
+                bevelThickness: 0.2,
+                bevelSize: 0.2,
+                bevelOffset: 0,
+                bevelSegments: 5
+            });
+            const textMaterial = new THREE.MeshBasicMaterial({ color: 0x0000FF });
+            const textMesh = new THREE.Mesh(textGeometry, textMaterial);
+            textMesh.position.set(0, 2, 0); // 文字位置在蛋糕上方
+            scene.add(textMesh);
+        });
+
+        // 设置相机位置
+        camera.position.z = 10;
+
+        // 动画循环
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // 旋转蛋糕、蜡烛和文字
+            cakeBase.rotation.x += 0.01;
+            cakeBase.rotation.y += 0.01;
+            candle.rotation.x += 0.01;
+            candle.rotation.y += 0.01;
+            textMesh.rotation.x += 0.01;
+            textMesh.rotation.y += 0.01;
+
+            // 渲染场景
+            renderer.render(scene, camera);
+        }
+
+        animate();
+    </script>
+</body>
+</html>
