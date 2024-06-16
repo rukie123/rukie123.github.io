@@ -1,71 +1,25 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Birthday Cake with Moving Text</title>
-    <style>
-        body { margin: 0; overflow: hidden; }
-    </style>
+    <title>生日蛋糕与动态祝福</title>
+    <link rel="stylesheet" href="style_dir.css">
 </head>
 <body>
-    <!-- 3D 场景容器 -->
-    <div id="cake-container"></div>
-
-    <script>
-        // 创建一个Canvas元素
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        document.getElementById('cake-container').appendChild(canvas);
-
-        // 蛋糕的尺寸和位置
-        const cakeSize = { width: 200, height: 100, depth: 100 };
-        const cakePos = { x: canvas.width / 2 - cakeSize.width / 2, y: canvas.height / 2 - cakeSize.height / 2, z: 0 };
-
-        // 文字的逐字显示效果
-        const message = '愿你的每一天都像今天一样与众不同';
-        let currentIndex = 0;
-
-        function drawCake() {
-            // 清除画布
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // 绘制蛋糕
-            ctx.fillStyle = '#EEEEFF';
-            ctx.beginPath();
-            ctx.rect(cakePos.x, cakePos.y, cakeSize.width, cakeSize.height);
-            ctx.fill();
-        }
-
-        function drawText() {
-            // 清除画布
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // 绘制文字
-            ctx.fillStyle = '#0000FF';
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.fillText(message.substring(0, currentIndex), cakePos.x + cakeSize.width / 2, cakePos.y + cakeSize.height / 2);
-
-            currentIndex++;
-            if (currentIndex >= message.length) {
-                currentIndex = 0;
-            }
-        }
-
-        function animate() {
-            // 添加一个大的延迟来减慢动画速度
-            setTimeout(() => {
-                requestAnimationFrame(animate);
-                drawCake();
-                drawText();
-            }, 300); // 300毫秒的延迟
-        }
-
-        animate();
-    </script>
+    <div class="cake-container">
+        <div class="cake-layer cake-top"></div>
+        <div class="cake-layer cake-middle"></div>
+        <div class="cake-layer cake-bottom"></div>
+        <div class="candle"></div>
+        <div class="text-container">
+            <span class="dynamic-text">愿你的</span>
+            <span class="dynamic-text">每一天</span>
+            <span class="dynamic-text">都像</span>
+            <span class="dynamic-text">今天</span>
+            <span class="dynamic-text">一样</span>
+            <span class="dynamic-text">与众不同</span>
+        </div>
+    </div>
 </body>
 </html>
