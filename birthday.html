@@ -4,59 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D Birthday Cake with Moving Text</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+    </style>
 </head>
 <body>
     <!-- 3D 场景容器 -->
     <div id="cake-container"></div>
 
     <script>
-        // 创建场景
-        const scene = new THREE.Scene();
+        // 创建一个Canvas元素
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        document.getElementById('cake-container').appendChild(canvas);
 
-        // 创建相机
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.z = 10;
+        // 蛋糕的尺寸和位置
+        const cakeSize = { width: 200, height: 100, depth: 100 };
+        const cakePos = { x: 0, y: 0, z: 0 };
 
-        // 创建渲染器
-        const renderer = new THREE.WebGLRenderer();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.getElementById('cake-container').appendChild(renderer.domElement);
+        // 文字的逐字显示效果
+        const message = '愿你的每一天都像今天一样与众不同';
+        let currentIndex = 0;
 
-        // 创建一个简单的蛋糕模型
-        const cakeGeometry = new THREE.BoxGeometry(3, 2, 3); // 底座
-        const cakeMaterial = new THREE.MeshBasicMaterial({ color: 0xEEEEFF });
-        const cakeBase = new THREE.Mesh(cakeGeometry, cakeMaterial);
-        scene.add(cakeBase);
+        function drawCake() {
+            // 清除画布
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // 创建庆祝生日的文字
-        const text = '愿你的每一天都像今天一样与众不同';
-        const textGeometry = new THREE.TextGeometry(text, {
-            size: 1,
-            height: 0.1,
-            font: 'helvetiker' // 使用Three.js内置的默认字体
-        });
-        const textMaterial = new THREE.MeshBasicMaterial({ color: 0x0000FF });
-        const textMesh = new THREE.Mesh(textGeometry, textMaterial);
-        textMesh.position.set(0, 1, 0); // 文字位置在蛋糕上方
-        scene.add(textMesh);
+            // 绘制蛋糕
+            ctx.fillStyle = '#EEEEFF';
+            ctx.beginPath();
+            ctx.rect(cakePos.x, cakePos.y, cakeSize.width, cakeSize.height);
+            ctx.fill();
 
-        // 添加灯光
-        const light = new THREE.PointLight(0xFFFFFF, 1, 100);
-        light.position.set(5, 5, 5);
-        scene.add(light);
+            // 绘制文字
+            ctx.fillStyle = '#0000FF';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(message.substring(0, currentIndex), cakePos.x + cakeSize.width / 2, cakePos.y + cakeSize.height / 2);
 
-        // 动画循环
+            currentIndex++;
+            if (currentIndex >= message.length) {
+                currentIndex = 0;
+            }
+        }
+
         function animate() {
             requestAnimationFrame(animate);
-
-            // 旋转蛋糕和文字
-            //cakeBase.rotation.x += 0.01;
-            //cakeBase.rotation.y += 0.01;
-            //textMesh.rotation.x += 0.01;
-           // textMesh.rotation.y += 0.01;
-
-            // 渲染场景
-            renderer.render(scene, camera);
+            drawCake();
         }
 
         animate();
