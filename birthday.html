@@ -22,11 +22,12 @@
 
         // 蛋糕的尺寸和位置
         const cakeSize = { width: 200, height: 100, depth: 100 };
-        const cakePos = { x: 0, y: 0, z: 0 };
+        const cakePos = { x: canvas.width / 2 - cakeSize.width / 2, y: canvas.height / 2 - cakeSize.height / 2, z: 0 };
 
         // 文字的逐字显示效果
         const message = '愿你的每一天都像今天一样与众不同';
         let currentIndex = 0;
+        let textWidth = 0;
 
         function drawCake() {
             // 清除画布
