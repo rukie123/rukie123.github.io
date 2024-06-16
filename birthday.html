@@ -27,7 +27,6 @@
         // 文字的逐字显示效果
         const message = '愿你的每一天都像今天一样与众不同';
         let currentIndex = 0;
-        let textWidth = 0;
 
         function drawCake() {
             // 清除画布
@@ -38,6 +37,11 @@
             ctx.beginPath();
             ctx.rect(cakePos.x, cakePos.y, cakeSize.width, cakeSize.height);
             ctx.fill();
+        }
+
+        function drawText() {
+            // 清除画布
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             // 绘制文字
             ctx.fillStyle = '#0000FF';
@@ -52,11 +56,12 @@
         }
 
         function animate() {
-            // 添加一个小的延迟来减慢动画速度
+            // 添加一个大的延迟来减慢动画速度
             setTimeout(() => {
                 requestAnimationFrame(animate);
                 drawCake();
-            }, 275); // 延迟
+                drawText();
+            }, 300); // 300毫秒的延迟
         }
 
         animate();
