@@ -52,8 +52,11 @@
         }
 
         function animate() {
-            requestAnimationFrame(animate);
-            drawCake();
+            // 添加一个小的延迟来减慢动画速度
+            setTimeout(() => {
+                requestAnimationFrame(animate);
+                drawCake();
+            }, 275); // 延迟
         }
 
         animate();
