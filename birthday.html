@@ -9,44 +9,44 @@
     </style>
 </head>
 <body>
-    <h3>愿你的每一天都与众不同</h3><!-- 引入Three.js库 -->
+    <h3>愿你的每一天都与众不同</h3>
+    <!-- 引入Three.js库 -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.132.0/build/three.min.js"></script>
     <script>
-        // 创建场景
         const scene = new THREE.Scene();
-
-        // 创建相机
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         camera.position.z = 10;
 
-        // 创建渲染器
         const renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
-        // 创建一个简单的蛋糕模型
-        const cakeGeometry = new THREE.CylinderGeometry(2, 2, 4, 16); // 底座
+        // 创建材料
         const cakeMaterial = new THREE.MeshBasicMaterial({ color: 0xEEEEFF });
-        const cakeBase = new THREE.Mesh(cakeGeometry, cakeMaterial);
+        const candleMaterial = new THREE.MeshBasicMaterial({ color: 0xFF5555 });
+        const textMaterial = new THREE.MeshBasicMaterial({ color: 0x0000FF });
+
+        // 创建蛋糕模型
+        const cakeBase = new THREE.Mesh(new THREE.CylinderGeometry(2, 2, 4, 16), cakeMaterial);
         scene.add(cakeBase);
 
         // 创建蜡烛模型
-        const candleGeometry = new THREE.CylinderGeometry(0.2, 0.2, 2, 16); // 蜡烛
-        const candleMaterial = new THREE.MeshBasicMaterial({ color: 0xFF5555 });
-        const candle = new THREE.Mesh(candleGeometry, candleMaterial);
-        candle.position.set(0, 3, 0); // 蜡烛位置在蛋糕上方
+        const candle = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 2, 16), candleMaterial);
+        candle.position.set(0, 3, 0);
         scene.add(candle);
 
-        // 创建庆祝生日的文字
-        const textGeometry = new THREE.TextGeometry('愿你的每一天都像今天一样与众不同', {
-            size: 2,
-            height: 0.2,
-            font: 'helvetiker' // 使用Three.js内置的默认字体
+        // 创建文字模型
+        const loader = new THREE.FontLoader();
+        loader.load('fonts/helvetiker_regular.typeface.json', function(font) {
+            const textGeometry = new THREE.TextGeometry('愿你的每一天都像今天一样与众不同', {
+                font: font,
+                size: 2,
+                height: 0.2
+            });
+            const textMesh = new THREE.Mesh(textGeometry, textMaterial);
+            textMesh.position.set(0, 2, 0);
+            scene.add(textMesh);
         });
-        const textMaterial = new THREE.MeshBasicMaterial({ color: 0x0000FF });
-        const textMesh = new THREE.Mesh(textGeometry, textMaterial);
-        textMesh.position.set(0, 2, 0); // 文字位置在蛋糕上方
-        scene.add(textMesh);
 
         // 添加灯光
         const light = new THREE.PointLight(0xFFFFFF, 1, 100);
@@ -55,20 +55,24 @@
 
         // 动画循环
         function animate() {
-           requestAnimationFrame(animate);
-
+            requestAnimationFrame(animate);
             // 旋转蛋糕、蜡烛和文字
-           // cakeBase.rotation.x += 0.01;
-           // cakeBase.rotation.y += 0.01;
-           // candle.rotation.x += 0.01;
-         //   candle.rotation.y += 0.01;
-            //textMesh.rotation.x += 0.01;
-        //    textMesh.rotation.y += 0.01;
-
+            cakeBase.rotation.x += 0.01;
+            cakeBase.rotation.y += 0.01;
+            candle.rotation.x += 0.01;
+            candle.rotation.y += 0.01;
             // 渲染场景
-           renderer.render(scene, camera);
+            renderer.render(scene, camera);
         }
-	
+
+        // 窗口大小变化时调整渲染器大小
+        window.addEventListener('resize', onWindowResize, false);
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
         animate();
     </script>
 </body>
