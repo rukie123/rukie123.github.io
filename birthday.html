@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Birthday Cake with Moving Text</title>
+    <title>3D Birthday Cake with Candles and Text</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+    </style>
 </head>
 <body>
-    <!-- 3D 场景容器 -->
-    <div id="cake-container"></div>
-
+    <!-- 引入Three.js库 -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.0/build/three.min.js"></script>
     <script>
         // 创建场景
         const scene = new THREE.Scene();
@@ -21,24 +22,30 @@
         // 创建渲染器
         const renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth, window.innerHeight);
-        document.getElementById('cake-container').appendChild(renderer.domElement);
+        document.body.appendChild(renderer.domElement);
 
         // 创建一个简单的蛋糕模型
-        const cakeGeometry = new THREE.BoxGeometry(3, 2, 3); // 底座
+        const cakeGeometry = new THREE.CylinderGeometry(2, 2, 4, 16); // 底座
         const cakeMaterial = new THREE.MeshBasicMaterial({ color: 0xEEEEFF });
         const cakeBase = new THREE.Mesh(cakeGeometry, cakeMaterial);
         scene.add(cakeBase);
 
+        // 创建蜡烛模型
+        const candleGeometry = new THREE.CylinderGeometry(0.2, 0.2, 2, 16); // 蜡烛
+        const candleMaterial = new THREE.MeshBasicMaterial({ color: 0xFF5555 });
+        const candle = new THREE.Mesh(candleGeometry, candleMaterial);
+        candle.position.set(0, 3, 0); // 蜡烛位置在蛋糕上方
+        scene.add(candle);
+
         // 创建庆祝生日的文字
-        const text = '愿你的每一天都像今天一样与众不同';
-        const textGeometry = new THREE.TextGeometry(text, {
-            size: 1,
-            height: 0.1,
+        const textGeometry = new THREE.TextGeometry('愿你的每一天都像今天一样与众不同', {
+            size: 2,
+            height: 0.2,
             font: 'helvetiker' // 使用Three.js内置的默认字体
         });
         const textMaterial = new THREE.MeshBasicMaterial({ color: 0x0000FF });
         const textMesh = new THREE.Mesh(textGeometry, textMaterial);
-        textMesh.position.set(0, 1, 0); // 文字位置在蛋糕上方
+        textMesh.position.set(0, 2, 0); // 文字位置在蛋糕上方
         scene.add(textMesh);
 
         // 添加灯光
@@ -50,9 +57,11 @@
         function animate() {
             requestAnimationFrame(animate);
 
-            // 旋转蛋糕和文字
+            // 旋转蛋糕、蜡烛和文字
             cakeBase.rotation.x += 0.01;
             cakeBase.rotation.y += 0.01;
+            candle.rotation.x += 0.01;
+            candle.rotation.y += 0.01;
             textMesh.rotation.x += 0.01;
             textMesh.rotation.y += 0.01;
 
