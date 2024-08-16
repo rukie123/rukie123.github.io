@@ -62,3 +62,26 @@ footer {
   padding: 10px;
   width: 100%;
 }
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin: 50px auto; /* 上下间距50px，左右自动居中 */
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px; /* 内边距 */
+    margin: 0 10px; /* 按钮之间的间距 */
+    text-decoration: none;
+    color: #ffffff; /* 文字颜色 */
+    background-color: #007bff; /* 背景颜色 */
+    border: none;
+    border-radius: 5px; /* 圆角边框 */
+    transition: background-color 0.3s ease; /* 过渡效果 */
+}
+
+.button:hover {
+    background-color: #0056b3; /* 鼠标悬停时的背景颜色 */
+}
+ 
