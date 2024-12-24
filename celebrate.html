@@ -1,66 +1,96 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>3D Christmas Tree</title>
+<title>3D Christmas Tree with Realistic Leaves</title>
 <style>
-  body, html {
-    height: 100%;
-    margin: 0;
-    background-color: #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    perspective: 1000px;
-  }
-
-  .tree {
-    transform-style: preserve-3d;
-    animation: spin 10s infinite linear;
-  }
-
-  .tree .layer {
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-left: 50px solid transparent;
-    border-right: 50px solid transparent;
-    border-bottom: 100px solid green;
-    transform-origin: bottom;
-  }
-
-  .tree .layer:nth-child(1) { transform: rotateX(30deg); }
-  .tree .layer:nth-child(2) { transform: rotateX(60deg); }
-  .tree .layer:nth-child(3) { transform: rotateX(90deg); }
-  .tree .layer:nth-child(4) { transform: rotateX(120deg); }
-  .tree .layer:nth-child(5) { transform: rotateX(150deg); }
-
-  .tree .trunk {
-    position: absolute;
-    width: 30px;
-    height: 60px;
-    background-color: #8B4513;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    transform-style: preserve-3d;
-  }
-
-  @keyframes spin {
-    from { transform: rotateY(0deg); }
-    to { transform: rotateY(360deg); }
-  }
+  body { margin: 0; }
+  canvas { display: block; }
 </style>
 </head>
 <body>
-<div class="tree">
-  <div class="layer"></div>
-  <div class="layer"></div>
-  <div class="layer"></div>
-  <div class="layer"></div>
-  <div class="layer"></div>
-  <div class="trunk"></div>
-</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+  let scene, camera, renderer, tree;
+
+  function init() {
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 5;
+
+    renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Load the leaf texture
+    const textureLoader = new THREE.TextureLoader();
+    const leafTexture = textureLoader.load('leaf-texture.jpg');
+
+    // Create a more complex geometry for the leaves
+    const leafGeometry = new THREE.IcosahedronGeometry(0.2, 2);
+
+    // Create a material with the loaded texture and some specular highlights
+    const leafMaterial = new THREE.MeshPhongMaterial({
+      map: leafTexture,
+      color: 0x779933,
+      specular: 0x111111,
+      shininess: 100
+    });
+
+    // Create the tree
+    tree = new THREE.Group();
+    for (let i = 0; i < 10; i++) {
+      const layer = new THREE.Group();
+      for (let j = 0; j < (i + 1) * 5; j++) {
+        const leaf = new THREE.Mesh(leafGeometry, leafMaterial);
+        leaf.position.x = (j - (i + 1) * 2.5) * 0.5;
+        leaf.position.y = i * 0.3;
+        leaf.position.z = Math.random() * 0.2 - 0.1;
+        leaf.rotation.y = Math.random() * Math.PI;
+        leaf.rotation.z = Math.random() * Math.PI;
+        layer.add(leaf);
+      }
+      layer.rotation.y = Math.PI / (i + 1);
+      tree.add(layer);
+    }
+
+    scene.add(tree);
+
+    // Lights
+    const ambientLight = new THREE.AmbientLight(0x404040);
+    scene.add(ambientLight);
+
+    const pointLight = new THREE.PointLight(0xffffff, 1, 100);
+    pointLight.position.set(10, 10, 10);
+    scene.add(pointLight);
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+    directionalLight.position.set(1, 1, 1);
+    scene.add(directionalLight);
+
+    animate();
+  }
+
+  function animate() {
+    requestAnimationFrame(animate);
+
+    // Rotate the tree for a nice effect
+    tree.rotation.y += 0.005;
+
+    renderer.render(scene, camera);
+  }
+
+  function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  }
+
+  window.addEventListener('resize', onWindowResize, false);
+
+  init();
+</script>
 </body>
 </html>
