@@ -3,150 +3,64 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Complex Christmas Tree</title>
+<title>3D Christmas Tree</title>
 <style>
   body, html {
     height: 100%;
     margin: 0;
-    background: radial-gradient(circle, #1a1a1a, #0a0a0a);
+    background-color: #333;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    perspective: 1000px;
   }
 
   .tree {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    transform-style: preserve-3d;
+    animation: spin 10s infinite linear;
   }
 
   .tree .layer {
-    width: 100px;
-    height: 30px;
-    background: linear-gradient(45deg, green, darkgreen);
-    margin: 10px 0;
-    position: relative;
-    z-index: 1;
-    border-radius: 15px;
-  }
-
-  .tree .layer:before,
-  .tree .layer:after {
-    content: '';
     position: absolute;
-    background: linear-gradient(45deg, green, darkgreen);
-    border-radius: 15px;
+    width: 0;
+    height: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-bottom: 100px solid green;
+    transform-origin: bottom;
   }
 
-  .tree .layer:before {
-    top: 100%;
-    left: 50%;
-    width: 80%;
-    height: 80%;
-    transform: translateX(-50%);
-  }
-
-  .tree .layer:after {
-    top: 50%;
-    left: 0;
-    width: 120%;
-    height: 120%;
-    transform: translateX(-100%);
-  }
+  .tree .layer:nth-child(1) { transform: rotateX(30deg); }
+  .tree .layer:nth-child(2) { transform: rotateX(60deg); }
+  .tree .layer:nth-child(3) { transform: rotateX(90deg); }
+  .tree .layer:nth-child(4) { transform: rotateX(120deg); }
+  .tree .layer:nth-child(5) { transform: rotateX(150deg); }
 
   .tree .trunk {
+    position: absolute;
     width: 30px;
     height: 60px;
     background-color: #8B4513;
-    margin-top: 10px;
-    border-radius: 0 0 5px 5px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    transform-style: preserve-3d;
   }
 
-  .tree .star {
-    color: #FFD700;
-    font-size: 3em;
-    margin-bottom: 10px;
-    animation: blink 1s infinite alternate;
-  }
-
-  .tree .lights span {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: yellow;
-    animation: blink 1s infinite alternate;
-  }
-
-  .tree .lights span:nth-child(odd) {
-    background-color: red;
-  }
-
-  .tree .lights span:nth-child(even) {
-    background-color: blue;
-  }
-
-  .snowflake {
-    color: #fff;
-    position: absolute;
-    top: -10px;
-    opacity: 0.8;
-    font-size: 1em;
-    user-select: none;
-    animation: fall linear infinite;
-  }
-
-  @keyframes blink {
-    from { opacity: 1; }
-    to { opacity: 0.5; }
-  }
-
-  @keyframes fall {
-    to {
-      transform: translateY(100vh);
-      opacity: 0;
-    }
+  @keyframes spin {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(360deg); }
   }
 </style>
 </head>
 <body>
 <div class="tree">
-  <div class="star">★</div>
-  <div class="lights"></div>
-  <div class="layer" style="width: 60px;"></div>
-  <div class="layer" style="width: 80px;"></div>
-  <div class="layer" style="width: 100px;"></div>
-  <div class="layer" style="width: 120px;"></div>
-  <div class="layer" style="width: 140px;"></div>
+  <div class="layer"></div>
+  <div class="layer"></div>
+  <div class="layer"></div>
+  <div class="layer"></div>
+  <div class="layer"></div>
   <div class="trunk"></div>
 </div>
-
-<script>
-  // Function to create snowflakes
-  function createSnowflake() {
-    const snowflake = document.createElement('div');
-    snowflake.classList.add('snowflake');
-    snowflake.textContent = '❅';
-    snowflake.style.left = Math.random() * 100 + 'vw';
-    snowflake.style.opacity = Math.random();
-    snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
-    snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
-    document.body.appendChild(snowflake);
-
-    // Remove snowflake after animation
-    snowflake.addEventListener('animationend', function() {
-      snowflake.remove();
-    });
-  }
-
-  // Create multiple snowflakes
-  setInterval(createSnowflake, 300);
-
-  // Function to create lights
-  function createLights() {
-    const lights = document.querySelector('.lights');
-    for (let i = 0; i < 50; i++) {
-      const light = document.createElement('span');
-      light.style.top = Math.random
+</body>
+</html>
