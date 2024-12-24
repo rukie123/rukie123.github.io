@@ -1,87 +1,109 @@
 body, html {
   height: 100%;
   margin: 0;
+  font-family: 'Helvetica Neue', Arial, sans-serif; /* 更现代的字体 */
+  color: #333; /* 更深的文字颜色 */
 }
 
 body {
   display: flex;
   flex-direction: column;
+  background-color: #f8f9fa; /* 更轻的背景颜色 */
 }
 
 header {
-  background-color: #333;
-  color: #fff;
-  padding: 20px;
-  text-align: center;
+  background-color: #343a40; /* 深色调，更专业 */
+  color: #ffffff;
+  padding: 20px 0; /* 上下有间距，左右无边距 */
 }
 
 header h1 {
   margin: 0;
+  font-size: 3em; /* 更大的标题字体 */
+  font-weight: bold; /* 加粗标题 */
 }
 
 header nav ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  justify-content: center; /* 导航居中 */
 }
 
 header nav ul li {
   display: inline-block;
-  margin-right: 10px;
+  margin: 0 20px; /* 更大的导航项间距 */
 }
 
 header nav ul li a {
-  color: #fff;
+  color: #cfd7df; /* 更浅的文字颜色 */
   text-decoration: none;
+  font-size: 1.5em; /* 更大的导航字体 */
+  transition: color 0.3s ease; /* 平滑的颜色过渡 */
+}
+
+header nav ul li a:hover {
+  color: #ffffff; /* 鼠标悬停时文字颜色变亮 */
 }
 
 main {
   flex: 1;
-  overflow-y: auto; /* 添加垂直滚动条 */
-  margin: 20px;
+  overflow-y: auto;
+  margin: 40px;
+  padding: 40px;
+  background-color: #ffffff; /* 明亮的背景颜色 */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 添加轻微的阴影效果 */
 }
 
 section {
-  margin-bottom: 20px;
+  margin-bottom: 60px; /* 更大的间距 */
 }
 
 section h2 {
-  color: #333;
+  color: #343a40;
+  font-size: 2.5em; /* 更大的副标题字体 */
+  font-weight: bold; /* 加粗副标题 */
+  margin-bottom: 20px; /* 添加底部间距 */
 }
 
 .project {
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin-bottom: 10px;
+  border: 1px solid #dee2e6;
+  padding: 30px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 更明显的阴影效果 */
+  margin-bottom: 30px;
 }
 
 footer {
-  background-color: #333;
-  color: #fff;
+  background-color: #343a40;
+  color: #cfd7df;
   text-align: center;
-  padding: 10px;
-  width: 100%;
+  padding: 20px 0; /* 上下有间距，左右无边距 */
+  font-size: 1.2em; /* 更大的字体大小 */
 }
 
 .button-container {
     display: flex;
     justify-content: center;
-    margin: 50px auto; /* 上下间距50px，左右自动居中 */
+    margin: 60px auto; /* 更大的上下间距 */
 }
 
 .button {
     display: inline-block;
-    padding: 10px 20px; /* 内边距 */
-    margin: 0 10px; /* 按钮之间的间距 */
+    padding: 20px 40px; /* 更大的按钮尺寸 */
+    margin: 0 20px; /* 更大的按钮间距 */
     text-decoration: none;
-    color: #ffffff; /* 文字颜色 */
-    background-color: #007bff; /* 背景颜色 */
+    color: #ffffff;
+    background-color: #007bff; /* 蓝色调，更专业 */
     border: none;
-    border-radius: 5px; /* 圆角边框 */
-    transition: background-color 0.3s ease; /* 过渡效果 */
+    border-radius: 10px; /* 更大的圆角 */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* 添加按钮按下的效果 */
+    font-size: 1.5em; /* 更大的字体大小 */
+    font-weight: bold; /* 加粗字体 */
 }
 
 .button:hover {
     background-color: #0056b3; /* 鼠标悬停时的背景颜色 */
+    transform: translateY(-3px); /* 鼠标悬停时轻微上升效果 */
 }
- 
