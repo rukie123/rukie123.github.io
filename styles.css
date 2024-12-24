@@ -16,7 +16,7 @@ body {
 header {
   background-color: #343a40;
   color: #ffffff;
-  padding: 20px;
+  padding: 15px; /* 减小内边距 */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -24,9 +24,9 @@ header {
 
 header h1 {
   margin: 0;
-  font-size: 2.5em;
+  font-size: 1.8em; /* 减小标题字体大小 */
   font-weight: bold;
-  padding-left: 40px;
+  padding-left: 30px; /* 减小左边距 */
 }
 
 header nav ul {
@@ -38,13 +38,13 @@ header nav ul {
 
 header nav ul li {
   display: inline-block;
-  margin: 0 15px;
+  margin: 0 10px; /* 减小边距 */
 }
 
 header nav ul li a {
   color: #cfd7df;
   text-decoration: none;
-  font-size: 1em;
+  font-size: 0.9em; /* 减小链接字体大小 */
   transition: color 0.3s ease;
 }
 
@@ -56,35 +56,35 @@ header nav ul li a:hover {
 main {
   flex: 1;
   overflow-y: auto;
-  margin: 40px;
-  padding: 40px;
+  margin: 20px; /* 减小外边距 */
+  padding: 20px; /* 减小内边距 */
   background-color: #ffffff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 section {
-  margin-bottom: 60px;
+  margin-bottom: 40px; /* 减小底部边距 */
 }
 
 section h2 {
   color: #343a40;
-  font-size: 2em;
+  font-size: 1.5em; /* 减小副标题字体大小 */
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 15px; /* 减小底部边距 */
 }
 
 /* 项目卡片样式 */
 .project {
   border: 1px solid #dee2e6;
-  padding: 30px;
+  padding: 20px; /* 减小内边距 */
   background-color: #ffffff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 30px;
+  margin-bottom: 20px; /* 减小底部边距 */
   transition: transform 0.3s ease;
 }
 
 .project:hover {
-  transform: translateY(-5px);
+  transform: translateY(-3px);
 }
 
 /* 页脚样式 */
@@ -92,46 +92,46 @@ footer {
   background-color: #343a40;
   color: #cfd7df;
   text-align: center;
-  padding: 20px 0;
-  font-size: 1.2em;
+  padding: 15px 0; /* 减小内边距 */
+  font-size: 1em; /* 减小字体大小 */
 }
 
 /* 按钮样式 */
 .button-container {
   display: flex;
   justify-content: center;
-  margin: 60px auto;
+  margin: 40px auto; /* 减小外边距 */
 }
 
 .button {
   display: inline-block;
-  padding: 15px 30px;
-  margin: 0 10px;
+  padding: 10px 20px; /* 减小内边距 */
+  margin: 0 5px; /* 减小边距 */
   text-decoration: none;
   color: #ffffff;
   background-color: #007bff;
   border: none;
-  border-radius: 10px;
+  border-radius: 5px; /* 减小圆角 */
   transition: background-color 0.3s ease, transform 0.2s ease;
-  font-size: 1em;
+  font-size: 0.8em; /* 减小字体大小 */
   font-weight: bold;
   cursor: pointer;
 }
 
 .button:hover {
   background-color: #0056b3;
-  transform: translateY(-3px);
+  transform: translateY(-2px); /* 减小上升效果 */
 }
 
 /* 响应式设计 */
 @media (max-width: 768px) {
   header h1 {
-    font-size: 2em;
+    font-size: 1.5em;
     padding-left: 20px;
   }
 
   header nav ul li {
-    margin: 0 10px;
+    margin: 0 5px;
   }
 
   .button-container {
@@ -140,6 +140,6 @@ footer {
   }
 
   .button {
-    margin: 10px 0;
+    margin: 5px 0;
   }
 }
