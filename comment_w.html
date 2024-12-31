@@ -4,145 +4,99 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>雄鹰开发者团队科技点评</title>
-    <link rel="stylesheet" href="styles.css"> 
-
-	
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?21e2f28614ce51fbd5ea7f2d6340321e";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
-
-
-
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?21e2f28614ce51fbd5ea7f2d6340321e";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+	    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .project {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        .hidden {
+            display: none;
+        }
+        #loadMore {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-<header>    
-        <h1>雄鹰开发者团队</h1>    
-        <nav>    
-            <ul>    
-                <li><a href="https://rukie123.github.io">首页</a></li> 
-                <li><a href="https://rukie123.github.io/index">项目展示</a></li>   
-                <li><a href="https://rukie123.github.io/news">新闻</a></li> 
-                <li><a href="https://rukie123.github.io/members">成员介绍</a></li> 
-		<li><a href="https://rukie123.github.io/comment">科技点评</a></li> 
-                <li><a href="https://rukie123.github.io/share">好物分享</a></li> 
-                <li><a href="mailto:bug_2022_py@163.com">联系我们</a></li>
-            </ul>    
-        </nav>    
-    </header>    
-     <section id="project">
+    <header>
+        <h1>雄鹰开发者团队科技点评</h1>
+    </header>
 
-<div class="project">    
+    <section id="news">
+        <!-- 新闻项目 -->
+        <div class="project" data-date="2024-07-20">
+            <h3>小米7月19日发布会：引领未来生活新篇章</h3>
+            <p>日期：2024-07-20</p>
+            <a href="https://rukie123.github.io/comment17">评论详情</a>
+        </div>
+        <!-- ... 更多新闻项目 ... -->
+        <div class="project" data-date="2024-05-14">
+            <h3>iPad Pro2024评价</h3>
+            <p>日期：2024-05-14</p>
+            <a href="https://rukie123.github.io/comment1">评论详情</a>
+        </div>
+        <!-- ... 更多新闻项目 ... -->
+    </section>
 
-	<div class="project">    
-	<h3>小米7月19日发布会：引领未来生活新篇章</h3>   
-		<p>日期：2024-07-20</p> 
-               <li><a href="https://rukie123.github.io/comment17">评论详情</a></li>
-            </div> 
-	
-		<div class="project">    
-	<h3>华为HDC大会2024：鸿蒙5.0安全升级引领未来科技潮流</h3>   
-		<p>日期：2024-06-26</p> 
-               <li><a href="https://rukie123.github.io/comment16">评论详情</a></li>
-            </div> 
+    <button id="loadMore">显示更多新闻</button>
 
-	     
-	<div class="project">    
-	<h3>Apple Vision Pro国行版：技术创新与性价比的博弈</h3>   
-		<p>日期：2024-06-26</p> 
-               <li><a href="https://rukie123.github.io/comment15">评论详情</a></li>
-            </div> 
+    <footer>
+        <p>版权所有：雄鹰开发者团队</p>
+    </footer>
 
-	
-	<div class="project">    
-	<h3>苹果携手OpenAI，数据安全与隐私保护成焦点</h3>   
-		<p>日期：2024-06-14</p> 
-               <li><a href="https://rukie123.github.io/comment14">评论详情</a></li>
-            </div> 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            filterNews();
+            document.getElementById('loadMore').addEventListener('click', loadMoreNews);
+        });
 
-		<div class="project">    
-		<h3>SpaceX星舰：开启火星之旅的太空巨兽</h3>   
-		<p>日期：2024-06-10</p> 
-               <li><a href="https://rukie123.github.io/comment12">评论详情</a></li>
-            </div> 
+        function filterNews() {
+            const newsItems = document.querySelectorAll('.project');
+            const sixMonthsAgo = new Date();
+            sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
 
-		
-		
-		
-		<div class="project">    
-		<h3>高通骁龙8 Gen 4：雄鹰开发者团队视角下的性能飞跃与挑战</h3>   
-		<p>日期：2024-06-04</p> 
-               <li><a href="https://rukie123.github.io/comment11">评论详情</a></li>
-            </div> 
+            newsItems.forEach(item => {
+                const newsDate = new Date(item.getAttribute('data-date'));
+                if (newsDate < sixMonthsAgo) {
+                    item.classList.add('hidden');
+                }
+            });
+        }
 
-	 <div class="project">    
-		 <h3>华为Mate70携麒麟9020芯片：引领智能手机新纪元</h3>   
-		<p>日期：2024-06-03</p> 
-               <li><a href="https://rukie123.github.io/comment10">评论详情</a></li>
-            </div> 
-	     
-             <div class="project">    
-		     <h3>荣耀X50：销量破千万，均衡性能成就市场佳话</h3>   
-		<p>日期：2024-05-27</p> 
-               <li><a href="https://rukie123.github.io/comment9">评论详情</a></li>
-            </div> 
+        function loadMoreNews() {
+            const hiddenNews = document.querySelectorAll('.project.hidden');
+            const showCount = 5; // 每次点击显示更多时显示的新闻数量
+            let shown = 0;
 
-	     
-	     <div class="project">    
-                <h3>iPad Pro：高性能背后的高价位</h3>   
-		<p>日期：2024-05-27</p> 
-               <li><a href="https://rukie123.github.io/comment8">评论详情</a></li>
-            </div> 
-	     
-		<div class="project">    
-                <h3>WWDC24前瞻：苹果的创新脚步，雄鹰开发者的深度解读</h3>   
-		<p>日期：2024-05-27</p> 
-               <li><a href="https://rukie123.github.io/comment7">评论详情</a></li>
-            </div> 
-	     
-		<div class="project">    
-                <h3>iOS18预告：科技与艺术的完美融合，雄鹰开发者团队赞誉连连</h3>   
-		<p>日期：2024-05-23</p> 
-               <li><a href="https://rukie123.github.io/comment6">评论详情</a></li>
-            </div> 
-	     
-		<div class="project">    
-                <h3>骁龙8 Gen4即将登场：雄鹰开发者团队赞誉有加，行业观点各异，性能对比亮眼</h3>   
-		<p>日期：2024-05-23</p> 
-               <li><a href="https://rukie123.github.io/comment5">评论详情</a></li>
-            </div> 
-	     
-		<div class="project">    
-                <h3>雄鹰开发者团队对苹果iOS系统操作逻辑和存储芯片质量的质疑</h3>   
-		<p>日期：2024-05-23</p> 
-               <li><a href="https://rukie123.github.io/comment4">评论详情</a></li>
-            </div> 
+            hiddenNews.forEach(item => {
+                if (shown < showCount) {
+                    item.classList.remove('hidden');
+                    shown++;
+                }
+            });
 
-	     <div class="project">    
-                <h3>华为MatePad 11.5：教育革新利器，雄鹰开发者团队盛赞</h3>   
-		<p>日期：2024-05-23</p> 
-               <li><a href="https://rukie123.github.io/comment3">评论详情</a></li>
-            </div> 
-	<div class="project">    
-                <h3>美国对华为的新的制裁</h3>   
-		<p>日期：2024-05-15</p> 
-               <li><a href="https://rukie123.github.io/comment2">评论详情</a></li>
-            </div>  
-  
-            <div class="project">    
-                <h3>iPad Pro2024评价</h3>   
-		<p>日期：2024-05-14</p> 
-               <li><a href="https://rukie123.github.io/comment1">评论详情</a></li>
-            </div>    
-
-        </section>    
-    <footer>    
-        <p>版权所有：雄鹰开发者团队</p>    
-    </footer>    
+            if (hiddenNews.length <= shown) {
+                document.getElementById('loadMore').style.display = 'none';
+            }
+        }
+    </script>
 </body>
 </html>
