@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub图片下载站</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+        body {
+            background: #121212;
+            color: #eee;
+            min-height: 100vh;
+            padding: 30px 15px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        /* 登录面板 */
+        .login-box {
+            max-width: 420px;
+            margin: 120px auto;
+            background: #1e1e1e;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 30px #00000060;
+        }
+        .login-box h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #409eff;
+        }
+        .input-wrap {
+            margin-bottom: 20px;
+        }
+        .input-wrap label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        .input-wrap input {
+            width: 100%;
+            padding: 14px 16px;
+            background: #2d2d2d;
+            border: 1px solid #3f3f3f;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+        }
+        .input-wrap input:focus {
+            border-color: #409eff;
+        }
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: #409eff;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .btn-login:hover {
+            background: #66b1ff;
+        }
+        .tip-error {
+            color: #f56c6c;
+            text-align: center;
+            margin-top: 12px;
+            font-size: 14px;
+            display: none;
+        }
+        /* 主下载列表页面 */
+        .gallery-wrap {
+            display: none;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .top-bar h1 {
+            font-size: 22px;
+            color: #409eff;
+        }
+        .batch-open-btn {
+            padding: 9px 16px;
+            background: #67c23a;
+            border: none;
+            border-radius: 6px;
+            color: #fff;
+            cursor: pointer;
+        }
+        /* 图片列表行 */
+        .list-wrap {
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .img-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid #333;
+        }
+        .img-item:last-child {
+            border-bottom: none;
+        }
+        .img-name-text {
+            font-size: 15px;
+            word-break: break-all;
+            padding-right: 15px;
+        }
+        .download-btn {
+            flex-shrink: 0;
+            padding: 8px 18px;
+            background: #409eff;
+            border: none;
+            border-radius: 6px;
+            color: #fff;
+            cursor: pointer;
+        }
+        .download-btn:hover {
+            background: #66b1ff;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- 登录区域 -->
+    <div class="login-box" id="loginBox">
+        <h2>图库访问验证</h2>
+        <div class="input-wrap">
+            <label>访问密码</label>
+            <input type="password" id="pwdInput" placeholder="输入访问密码">
+        </div>
+        <button class="btn-login" id="loginBtn">进入下载列表</button>
+        <div class="tip-error" id="errorTip">密码错误，请重新输入</div>
+    </div>
+
+    <!-- 下载列表页面 -->
+    <div class="gallery-wrap" id="galleryBox">
+        <div class="top-bar">
+            <h1>图片下载列表</h1>
+            <button class="batch-open-btn" id="batchOpenAll">批量打开所有图片</button>
+        </div>
+        <div class="list-wrap" id="listContainer"></div>
+    </div>
+</div>
+
+<script>
+// ====================== 配置区（仅修改这里） ======================
+const loginPassword = "123456"; // 自定义访问密码
+// 图片列表：name=显示名称，url=GitHub Raw图片链接
+const imageList = [
+    {
+        name: "图片1",
+        //url: "https://raw.githubusercontent.com/用户名/仓库/main/xxx.jpg"
+    },
+    {
+        name: "图片2",
+        //url: "https://raw.githubusercontent.com/用户名/仓库/main/xxx.png"
+    }
+];
+// =================================================================
+
+const loginBox = document.getElementById("loginBox");
+const galleryBox = document.getElementById("galleryBox");
+const pwdInput = document.getElementById("pwdInput");
+const loginBtn = document.getElementById("loginBtn");
+const errorTip = document.getElementById("errorTip");
+const listContainer = document.getElementById("listContainer");
+const batchOpenAll = document.getElementById("batchOpenAll");
+
+// 登录验证
+loginBtn.onclick = () => {
+    if (pwdInput.value.trim() === loginPassword) {
+        loginBox.style.display = "none";
+        galleryBox.style.display = "block";
+        renderList();
+    } else {
+        errorTip.style.display = "block";
+        setTimeout(() => errorTip.style.display = "none", 2000);
+    }
+};
+pwdInput.addEventListener("keydown", e => e.key === "Enter" && loginBtn.click());
+
+// 渲染列表（无预览图，纯文字+下载按钮）
+function renderList() {
+    listContainer.innerHTML = "";
+    imageList.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "img-item";
+        div.innerHTML = `
+            <div class="img-name-text">${item.name}</div>
+            <button class="download-btn" data-url="${item.url}" data-filename="${item.name}">下载</button>
+        `;
+        // 下载按钮事件
+        div.querySelector(".download-btn").addEventListener("click", e => {
+            const url = e.target.dataset.url;
+            const filename = e.target.dataset.filename;
+            downloadFile(url, filename);
+        });
+        listContainer.appendChild(div);
+    });
+}
+
+// 单文件下载
+function downloadFile(url, fileName) {
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+}
+
+// 批量新标签打开全部图片
+batchOpenAll.onclick = () => {
+    imageList.forEach(item => window.open(item.url, "_blank"));
+};
+</script>
+</body>
+</html>
