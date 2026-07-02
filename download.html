@@ -44,6 +44,12 @@
             font-size: 14px;
             opacity: 0.8;
         }
+        .input-wrap h3 {
+            font-size: 13px;
+            color: #aaa;
+            margin-bottom: 10px;
+            font-weight: normal;
+        }
         .input-wrap input {
             width: 100%;
             padding: 14px 16px;
@@ -93,13 +99,10 @@
             font-size: 22px;
             color: #409eff;
         }
-        .batch-open-btn {
-            padding: 9px 16px;
-            background: #67c23a;
-            border: none;
-            border-radius: 6px;
-            color: #fff;
-            cursor: pointer;
+        .top-bar h3 {
+            font-size: 14px;
+            color: #999;
+            font-weight: normal;
         }
         /* 图片列表行 */
         .list-wrap {
@@ -155,7 +158,6 @@
         <div class="top-bar">
             <h1>图片下载列表</h1>
             <h3>下载功能还在测试</h3>
-            <!--<button class="batch-open-btn" id="batchOpenAll">批量打开所有图片</button> -->
         </div>
         <div class="list-wrap" id="listContainer"></div>
     </div>
@@ -165,7 +167,6 @@
 // ====================== 配置区（仅修改这里） ======================
 const loginPassword = "y0304"; // 自定义访问密码
 // 图片列表：name=显示名称，url=GitHub Raw图片链接
-
 const imageList = [
     {
         name: "物理九上10.1 -P1（未上传）",
@@ -174,7 +175,7 @@ const imageList = [
     {
         name: "物理九上10.1 -P2（未上传）",
         url: "https://rukie123.github.io/pic02.jpg"
-    }
+    },
     {
         name: "化学",
         url: "https://rukie123.github.io/pic03.jpg"
@@ -188,7 +189,6 @@ const pwdInput = document.getElementById("pwdInput");
 const loginBtn = document.getElementById("loginBtn");
 const errorTip = document.getElementById("errorTip");
 const listContainer = document.getElementById("listContainer");
-const batchOpenAll = document.getElementById("batchOpenAll");
 
 // 登录验证
 loginBtn.onclick = () => {
@@ -232,11 +232,6 @@ function downloadFile(url, fileName) {
     a.click();
     document.body.removeChild(a);
 }
-
-// 批量新标签打开全部图片
-//batchOpenAll.onclick = () => {
-//    imageList.forEach(item => window.open(item.url, "_blank"));
-//};
 </script>
 </body>
 </html>
