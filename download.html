@@ -155,7 +155,7 @@
         <div class="top-bar">
             <h1>图片下载列表</h1>
             <h3>下载功能还在测试</h3>
-            <button class="batch-open-btn" id="batchOpenAll">批量打开所有图片</button>
+            <!--<button class="batch-open-btn" id="batchOpenAll">批量打开所有图片</button> -->
         </div>
         <div class="list-wrap" id="listContainer"></div>
     </div>
@@ -168,12 +168,12 @@ const loginPassword = "y0304"; // 自定义访问密码
 
 const imageList = [
     {
-        name: "图片1",
-        //url: "https://raw.githubusercontent.com/用户名/仓库/main/xxx.jpg"
+        name: "物理九上10.1 -P1（未上传）",
+        url: "https://rukie123.github.io/pic01.jpg"
     },
     {
-        name: "图片2",
-        //url: "https://raw.githubusercontent.com/用户名/仓库/main/xxx.png"
+        name: "物理九上10.1 -P2（未上传）",
+        url: "https://rukie123.github.io/pic02.jpg"
     }
 ];
 // =================================================================
@@ -230,9 +230,9 @@ function downloadFile(url, fileName) {
 }
 
 // 批量新标签打开全部图片
-batchOpenAll.onclick = () => {
-    imageList.forEach(item => window.open(item.url, "_blank"));
-};
+//batchOpenAll.onclick = () => {
+//    imageList.forEach(item => window.open(item.url, "_blank"));
+//};
 </script>
 </body>
 </html>
