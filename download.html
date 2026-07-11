@@ -89,7 +89,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
+            margin-bottom: 12px;
             flex-wrap: wrap;
             gap: 12px;
         }
@@ -101,6 +101,24 @@
             font-size: 14px;
             color: #999;
             font-weight: normal;
+        }
+        /* 新增：下载说明样式 */
+        .help-info {
+            background: #1e1e1e;
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .help-info h4{
+            color:#66b1ff;
+            margin-bottom:8px;
+            font-size:15px;
+        }
+        .help-info p{
+            color:#cccccc;
+            margin:4px 0;
         }
         .list-wrap {
             background: #1e1e1e;
@@ -152,8 +170,27 @@
     <div class="gallery-wrap" id="galleryBox">
         <div class="top-bar">
             <h1>图片下载列表</h1>
-            <h3>点击下载 → 新标签打开 → 右键另存为保存</h3>
+            <h3>点击下载会打开新标签页</h3>
         </div>
+
+        <!-- ==========新增下载指南区域========== -->
+        <div class="help-info">
+            <h4>📄 PDF文件保存指南</h4>
+            <p><strong>电脑端（Windows/Mac）：</strong></p>
+            <p>1. 点击下载，PDF在新标签打开</p>
+            <p>2. 方式①：点击预览页右上角下载箭头保存</p>
+            <p>3. 方式②：页面右键 → 另存为；快捷键 Ctrl+S / Command+S</p>
+            <br>
+            <p><strong>安卓手机：</strong></p>
+            <p>1. 新页面打开PDF后，点右上角三点/下载图标保存</p>
+            <p>2. 文件可在系统【下载】文件夹查看</p>
+            <br>
+            <p><strong>iPhone / iPad：</strong></p>
+            <p>1. 打开PDF后点击底部分享按钮</p>
+            <p>2. 选择【存储到文件】，保存到本机，在「文件」App查看</p>
+        </div>
+        <!-- =================================== -->
+
         <div class="list-wrap" id="listContainer"></div>
     </div>
 </div>
